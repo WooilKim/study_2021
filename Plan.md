@@ -28,22 +28,22 @@
 	* 자료 : Learn D3(https://observablehq.com/@d3/learn-d3), D3 tutorials(https://github.com/d3/d3/wiki/Tutorials)
 	
 1. 5주차
-	* 주제 : D3의 실제 사용
-	* 방식 : D3의 실제 예제를 몇 개 잡고, 예제를 따라서 분석해가면서 D3의 동작 원리를 이해한다. 
-	* 자료 : D3 예제(https://observablehq.com/@d3/gallery)
+	* 주제 : D3의 실제 사용(Bar chart)
+	* 방식 : D3 공식 사이트의 Bar chart, Diverging stacked bar chart 예제를 따라해보고 코드를 분석하면서 D3의 동작 원리를 이해한다. 
+	* 자료 : Bar chart 예제(https://observablehq.com/@d3/bar-chart), Diverging stacked bar chart 예제(https://observablehq.com/@d3/diverging-stacked-bar-chart)
 	
 1. 6주차
-	* 주제 : D3의 실제 사용
-	* 방식 : D3의 실제 예제를 몇 개 잡고, 예제를 따라서 분석해가면서 D3의 동작 원리를 이해한다. 
-	* 자료 : D3 예제(https://observablehq.com/@d3/gallery)
+	* 주제 : D3의 실제 사용(Dot plot)
+	* 방식 : D3 공식 사이트의 Dot plot, Scatterplot 예제를 따라해보고 코드를 분석하면서 D3의 동작 원리를 이해한다. 
+	* 자료 : Dot plot 예제(https://observablehq.com/@d3/dot-plot), Scatterplot 예제(https://observablehq.com/@d3/scatterplot)
 	
 1. 7주차
-	* 주제 : D3의 실제 사용
-	* 방식 : D3의 실제 예제를 몇 개 잡고, 예제를 따라서 분석해가면서 D3의 동작 원리를 이해한다. 
-	* 자료 : D3 예제(https://observablehq.com/@d3/gallery)
+	* 주제 : D3의 실제 사용(Line chart)
+	* 방식 : D3 공식 사이트의 Line chart, Candlestick chart 예제를 따라해보고 코드를 분석하면서 D3의 동작 원리를 이해한다.
+	* 자료 : Line chart 예제(https://observablehq.com/@d3/line-chart), Candlestick chart 예제(https://observablehq.com/@d3/candlestick-chart)
 	
 1. 8주차
-	* 주제 : D3의 실제 사용
-	* 방식 : D3의 실제 예제를 몇 개 잡고, 예제를 따라서 분석해가면서 D3의 동작 원리를 이해한다. 
-	* 자료 : D3 예제(https://observablehq.com/@d3/gallery)
+	* 주제 : D3의 실제 사용(etc)
+	* 방식 : D3 공식 사이트의 Treemap, Pie chart 예제를 따라해보고 코드를 분석하면서 D3의 동작 원리를 이해한다.
+	* 자료 : Treemap 예제(https://observablehq.com/@d3/treemap), Pie chart 예제(https://observablehq.com/@d3/pie-chart)
 	
