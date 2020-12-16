@@ -20,7 +20,7 @@
 1. 3주차
 	* 주제 : D3의 실제 사용(Dot plot / Line chart)
 	* 방식 : D3 공식 사이트의 Dot plot, Line Chart 예제를 따라해보고 코드를 분석하면서 D3의 동작 원리를 이해한다. 
-	* 자료 : Dot plot 예제(https://observablehq.com/@d3/dot-plot), Line chart 예제(https://observablehq.com/@d3/line-chart)
+	* 자료 : Dot plot 예제(https://observablehq.com/@mbostock/global-temperature-trends), Line chart 예제(https://observablehq.com/@d3/line-chart)
 	
 1. 4주차
 	* 주제 : D3의 실제 사용(etc)
