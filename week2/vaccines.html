@@ -1,0 +1,107 @@
+	<!DOCTYPE html>
+	<html>
+	<head>
+		<meta charset="UTF-8">
+		<script src="https://d3js.org/d3.v6.min.js"></script>
+		<title>D3 기본</title>
+	</head>
+	<body>
+		<svg></svg>
+		<script type="text/javascript">
+			const margin = ({top: 20, right: 1, bottom: 40, left: 40});
+			const width = 2000;
+			const height = 16;
+			const innerHeight = 816;
+
+			const names = ["Alaska", "Ala.", "Ark.", "Ariz.", "Calif.", "Colo.", "Conn.", "D.C.", "Del.", "Fla.", "Ga.", "Hawaii", "Iowa", "Idaho", "Ill.", "Ind.", "Kan.", "Ky.", "La.", "Mass.", "Md.", "Maine", "Mich.", "Minn.", "Mo.", "Miss.", "Mont.", "N.C.", "N.D.", "Neb.", "N.H.", "N.J.", "N.M", "Nev.", "N.Y.", "Ohio", "Okla.", "Ore.", "Pa.", "R.I.", "S.C.", "S.D.", "Tenn.", "Texas", "Utah", "Va.", "Vt.", "Wash.", "Wis.", "W.Va.", "Wyo."];
+
+			d3.json("vaccines.json")
+			.then((data) => {
+				const values = [];
+				const year0 = d3.min(data[0].data.values.data, d => d[0]);
+				const year1 = d3.max(data[0].data.values.data, d => d[0]);
+				const years = d3.range(year0, year1 + 1);
+				for (const [year, i, value] of data[0].data.values.data) {
+					if (value == null) continue;
+					(values[i] || (values[i] = []))[year - year0] = value;
+				}
+
+				data = {
+					values,
+					names,
+					years,
+					year: data[0].data.chart_options.vaccine_year
+				};
+
+				x = d3.scaleLinear()
+					.domain([d3.min(data.years), d3.max(data.years) + 1])
+					.rangeRound([margin.left, width - margin.right]);
+
+				y = d3.scaleBand()
+					.domain(data.names)
+					.rangeRound([margin.top, margin.top + innerHeight]);
+
+				color = d3.scaleSequentialSqrt([0, d3.max(data.values, d => d3.max(d))], d3.interpolatePuRd);
+
+				xAxis = g => g
+					.call(g => g.append("g")
+						.attr("transform", `translate(0,${margin.top})`)
+						.call(d3.axisTop(x).ticks(null, "d"))
+						.call(g => g.select(".domain").remove()))
+					.call(g => g.append("g")
+						.attr("transform", `translate(0,${innerHeight + margin.top + 4})`)
+						.call(d3.axisBottom(x)
+							.tickValues([data.year])
+							.tickFormat(x => x)
+							.tickSize(-innerHeight - 10))
+						.call(g => g.select(".tick text")
+							.clone()
+							.attr("dy", "2em")
+							.style("font-weight", "bold")
+							.text("Measles vaccine introduced"))
+						.call(g => g.select(".domain").remove()));
+
+				yAxis = g => g
+					.attr("transform", `translate(${margin.left},0)`)
+					.call(d3.axisLeft(y).tickSize(0))
+					.call(g => g.select(".domain").remove());
+
+				format = d => {
+					const f = d3.format(",d");
+					return isNaN(d) ? "N/A cases"
+					: d === 0 ? "0 cases"
+					: d < 1 ? "<1 case"
+					: d < 1.5 ? "1 case"
+					: `${f(d)} cases`;
+				};
+
+				const svg = d3.select("svg")
+					.attr("viewBox", [0, 0, width, innerHeight + margin.top + margin.bottom])
+					.attr("font-family", "sans-serif")
+					.attr("font-size", 10);
+
+				svg.append("g")
+					.call(xAxis);
+
+				svg.append("g")
+					.call(yAxis);
+
+				svg.append("g")
+					.selectAll("g")
+					.data(data.values)
+					.join("g")
+					.attr("transform", (d, i) => `translate(0,${y(data.names[i])})`)
+					.selectAll("rect")
+					.data(d => d)
+					.join("rect")
+					.attr("x", (d, i) => x(data.years[i]) + 1)
+					.attr("width", (d, i) => x(data.years[i] + 1) - x(data.years[i]) - 1)
+					.attr("height", y.bandwidth() - 1)
+					.attr("fill", d => isNaN(d) ? "#eee" : d === 0 ? "#fff" : color(d))
+					.append("title")
+					.text((d, i) => `${format(d)} per 100,000 people in ${data.years[i]}`);
+			})
+			
+		</script>
+	</body>
+	</html>
