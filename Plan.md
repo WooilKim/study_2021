@@ -13,36 +13,16 @@
 	* 자료 : Jump To Python(https://wikidocs.net/book/1)
 	
 1. 2주차
-	* 주제 : Python에서 사용되는 파일 입출력, Iterator, 클래스, 모듈, 라이브러리, 예외처리에 대한 이해
-	* 방식 : 파일 입출력, Iterator, 클래스, 모듈, 라이브러리, 예외처리의 구조와 function을 익히고, 해당 내용에 대한 간단한 예제를 만들어보면서 실습한다. 그 후, 몇 가지의 연습문제(자체 제작)를 풀이한다.
-	* 자료 : Jump To Python(https://wikidocs.net/book/1),  파이썬 - 기본을 갈고 닦자!(https://wikidocs.net/16068)
-	
-1. 3주차
-	* 주제 : Javascript에서 사용되는 배열, 객체 및 모듈에 대한 이해
-	* 방식 : Javascript의 함수, 배열, 객체와 모듈을 학습하고 해당 내용에 대한 간단한 예제를 만들어 보면서 실습한다. 그 후 몇 가지의 연습문제(자체 제작)를 풀이한다. 
-	* 자료 : 생활코딩(https://opentutorials.org/course/743), 모던 자바스크립트 튜토리얼(https://ko.javascript.info/)
-	
-1. 4주차
-	* 주제 : D3의 특징 및 구조에 대한 이해
-	* 방식 : 공식 문서를 참고해서 d3가 어떤 구조로 이루어져 있고, 어떤 방식으로 데이터를 컨트롤할 수 있는지를 익힌다.
-	* 자료 : Learn D3(https://observablehq.com/@d3/learn-d3), D3 tutorials(https://github.com/d3/d3/wiki/Tutorials)
-	
-1. 5주차
 	* 주제 : D3의 실제 사용(Bar chart)
 	* 방식 : D3 공식 사이트의 Bar chart, Diverging stacked bar chart 예제를 따라해보고 코드를 분석하면서 D3의 동작 원리를 이해한다. 
 	* 자료 : Bar chart 예제(https://observablehq.com/@d3/bar-chart), Diverging stacked bar chart 예제(https://observablehq.com/@d3/diverging-stacked-bar-chart), Impact of Vaccine 예제(https://observablehq.com/@mbostock/the-impact-of-vaccines)
 	
-1. 6주차
-	* 주제 : D3의 실제 사용(Dot plot)
-	* 방식 : D3 공식 사이트의 Dot plot, Scatterplot 예제를 따라해보고 코드를 분석하면서 D3의 동작 원리를 이해한다. 
-	* 자료 : Dot plot 예제(https://observablehq.com/@d3/dot-plot), Scatterplot 예제(https://observablehq.com/@d3/scatterplot), Bubblechart 예제(https://observablehq.com/@d3/bubble-chart)
+1. 3주차
+	* 주제 : D3의 실제 사용(Dot plot / Line chart)
+	* 방식 : D3 공식 사이트의 Dot plot, Line Chart 예제를 따라해보고 코드를 분석하면서 D3의 동작 원리를 이해한다. 
+	* 자료 : Dot plot 예제(https://observablehq.com/@d3/dot-plot), Line chart 예제(https://observablehq.com/@d3/line-chart)
 	
-1. 7주차
-	* 주제 : D3의 실제 사용(Line chart)
-	* 방식 : D3 공식 사이트의 Line chart, Candlestick chart 예제를 따라해보고 코드를 분석하면서 D3의 동작 원리를 이해한다.
-	* 자료 : Line chart 예제(https://observablehq.com/@d3/line-chart), Candlestick chart 예제(https://observablehq.com/@d3/candlestick-chart), Parallel Coordinates 예제(https://observablehq.com/@d3/parallel-coordinates)
-	
-1. 8주차
+1. 4주차
 	* 주제 : D3의 실제 사용(etc)
 	* 방식 : D3 공식 사이트의 Treemap, Pie chart 예제를 따라해보고 코드를 분석하면서 D3의 동작 원리를 이해한다.
 	* 자료 : Treemap 예제(https://observablehq.com/@d3/treemap), Pie chart 예제(https://observablehq.com/@d3/pie-chart), Word Cloud 예제(https://observablehq.com/@d3/word-cloud)
