@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<script src="https://d3js.org/d3.v6.min.js"></script>
+	<title>Graph 예제</title>
+</head>
+<body>
+	<label id="time"></label>
+	<button id="button">Pause</button>
+	<div class="slidecontainer">
+	  <input type="range" min="0" max="100" value="0" class="slider" id="myRange">
+	</div>
+	<svg></svg>
+	<script>
+		const width = 1000;
+		const height = 600;
+		const contains = ({start, end}, time) => {
+			return start <= time && time < end;
+		}
+		const drag = simulation => {
+			function dragstarted(event, d) {
+				if (!event.active) simulation.alphaTarget(0.3).restart();
+				d.fx = d.x;
+				d.fy = d.y;
+			}
+
+			function dragged(event, d) { 
+				d.fx = event.x;
+				d.fy = event.y;
+			}
+
+			function dragended(event, d) {
+				if (!event.active) simulation.alphaTarget(0);
+				d.fx = null;
+				d.fy = null;
+			}
+
+			return d3.drag()
+				.on("start", dragstarted)
+				.on("drag", dragged)
+				.on("end", dragended);
+		}
+
+		d3.json("graph.json")
+		.then(org_data => {
+			const data = {
+				nodes: org_data.nodes.map(({start, end, ...el}) => ({start: new Date(start), end: new Date(end), ...el})), 
+				links: org_data.links.map(({start, end, ...el}) => ({start: new Date(start), end: new Date(end), ...el})), 
+			};
+
+			console.log(data);
+
+			const times = d3.scaleTime()
+				.domain([d3.min(data.nodes, d => d.start), d3.max(data.nodes, d => d.end)])
+				.ticks(1000)
+				.filter(time => data.nodes.some(d => contains(d, time)));
+
+			const simulation = d3.forceSimulation()
+				.force("charge", d3.forceManyBody())
+				.force("link", d3.forceLink().id(d => d.id))
+				.force("x", d3.forceX())
+				.force("y", d3.forceY())
+				.on("tick", ticked);
+
+			const svg = d3.select("svg")
+				.attr("viewBox", [-width / 2, -height / 2, width, height]);
+
+			let link = svg.append("g")
+				.attr("stroke", "#999")
+				.attr("stroke-opacity", 0.6)
+				.selectAll("line");
+
+			let node = svg.append("g")
+				.attr("stroke", "#fff")
+				.attr("stroke-opacity", 1.5)
+				.selectAll("circle");
+
+			function ticked() {
+				node.attr("cx", d => d.x)
+					.attr("cy", d => d.y);
+
+				link.attr("x1", d => d.source.x)
+					.attr("y1", d => d.source.y)
+					.attr("x2", d => d.target.x)
+					.attr("y2", d => d.target.y);
+			}
+
+			function update({nodes, links}) {
+
+				// Make a shallow copy to protect against mutation, while
+				// recycling old nodes to preserve position and velocity.
+				const old = new Map(node.data().map(d => [d.id, d]));
+				nodes = nodes.map(d => Object.assign(old.get(d.id) || {}, d));
+				links = links.map(d => Object.assign({}, d));
+
+				node = node
+					.data(nodes, d => d.id)
+					.join(enter => 
+						enter.append("circle")
+							.attr("r", 5)
+							.call(drag(simulation))
+							.call(node => node.append("title").text(d => d.id))
+					)
+					.on("mouseover", function () {
+						d3.select(this).attr("fill", "lightcoral");
+					});
+
+				link = link
+					.data(links, d => [d.source, d.target])
+					.join("line")
+					.on("mouseover", function () {
+						d3.select(this).attr("fill", "lightcoral");
+					});
+
+				simulation.nodes(nodes);
+				simulation.force("link").links(links);
+				simulation.alpha(1).restart().tick();
+				ticked(); // render now!
+			};
+
+			const updatechart = (time) => {
+				const nodes = data.nodes.filter(d => contains(d, time));
+				const links = data.links.filter(d => contains(d, time));
+
+				update({nodes, links});
+			};
+
+			var idx = 0;
+			var time = times[idx];
+
+			const range = document.getElementById("myRange");
+			const timelabel = document.getElementById("time");
+			const button = document.getElementById("button");
+			
+			function timeflow() {
+				time = times[idx++];
+
+				timelabel.innerHTML = time.toISOString().split('T')[1];
+				range.value = idx;
+				updatechart(time);
+			}
+
+
+			var timer = setInterval(timeflow, 100);
+
+			range.max = times.length;
+			range.addEventListener('input', function(e) {
+				idx = e.target.value;
+
+				time = times[idx++];
+				timelabel.innerHTML = time.toISOString().split('T')[1];
+				updatechart(time);
+
+				clearInterval(timer);
+			});
+			
+			button.addEventListener('click', function(e) {
+				if(e.target.innerHTML === 'Play') {
+					e.target.innerHTML = 'Pause';
+					timer = setInterval(timeflow, 100);
+				} else {
+					e.target.innerHTML = 'Play';
+					clearInterval(timer);
+				}
+			})
+
+		});
+	</script>
+</body>
+</html>
